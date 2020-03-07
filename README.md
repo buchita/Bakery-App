@@ -1,2 +1,2 @@
 # Enterprise-Application
-Online Stationery Store
+Online Stationery Store using react and node js as a server
