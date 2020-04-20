@@ -112,7 +112,7 @@ class App extends Component {
 
           <div className="container">
 
-            <nav className="navbar navbar-expand-lg navbar-light">
+            <nav className="navbar fixed-top navbar-expand-lg navbar-light">
               {/* <a class="navbar-brand" href="https://codingthesmartway.com" target="_blank">
               <img src={logo} width="30" height="30" alt="CodingTheSmartWay.com" />
             </a> */}

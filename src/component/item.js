@@ -12,7 +12,8 @@ export default class Item extends Component {
             selectedCheck: false,
             radioCheck: false,
             radioButton: '',
-            newData: []
+            newData: [],
+
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -102,7 +103,7 @@ export default class Item extends Component {
                 //add in db
                 const itemRef = Firebase.database().ref('order');
 
-
+                console.log("This is radbutton : ", radButton)
                 if(radButton === "S")
                 {
                     price = 10.99;
@@ -111,12 +112,15 @@ export default class Item extends Component {
                 {
                     price = 12.99;
                 } 
-                else 
+                if( radButton === "L") 
                 {
                     price = 14.99;
                 }
+                else{
+                    console.log("in else lol")
+                }
 
-
+                console.log(price)
                 const item =
                 {
                     email: email,
@@ -145,27 +149,7 @@ export default class Item extends Component {
 
         }
         else {
-            // //add in db
-            // const itemRef = Firebase.database().ref('order');
-
-            // const item =
-            // {
-            //     name: data,
-            //     quantity: quantity
-            // }
-
-            // /* Send the message to Firebase */
-            // itemRef.push(item);
-
-            // // clear the input
-            // this.setState(
-            //     {
-            //         data: '',
-            //         selectedValue: ''
-
-            //     }
-            // )
-
+           
             alert("please login before you preoceed");
             this.props.history.push('/login');
 
