@@ -1,2 +1,2 @@
 # Enterprise-Application
-MERN stack
+React/Firebase/S3
