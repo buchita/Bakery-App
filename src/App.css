@@ -72,3 +72,14 @@
   width: 100%;
   height: 100%;
 }
+#paybtn
+{
+  float: right;
+  width: 20%;
+}
+/* https://stackoverflow.com/questions/49641293/bootstrap-4-fixed-top-nav-and-fixed-sidebar/49650313 */
+#tabs
+{
+  position: sticky;
+  top: 4em;
+}

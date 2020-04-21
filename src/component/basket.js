@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Firebase from './Firebase/firebase';
 import Modal from 'react-modal';
-import { FaTrashAlt } from 'react-icons/fa';
+// import { FaTrashAlt } from 'react-icons/fa';
 
 
 export default class Basket extends Component {
@@ -25,6 +25,8 @@ export default class Basket extends Component {
         this.handleDeleteClicked = this.handleDeleteClicked.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.change = this.change.bind(this);
+        this.payment = this.payment.bind(this);
+
 
     }
 
@@ -54,15 +56,15 @@ export default class Basket extends Component {
                 }
                 else {
                     //get all the data from the db
-                    // console.log(element.val().name);
+
 
                     // snapshot.forEach(function(element, index)
                     // {
                     // name.push(element.val().name);
                     // console.log(typeof(index))
+                    // console.log(element.val().name);
 
                     // });
-
 
 
 
@@ -72,21 +74,26 @@ export default class Basket extends Component {
 
                         console.log(item)
 
+                        // if havent paid yet
+                        if (items[item].pay === false) {
+                            newState.push(
+                                {
+                                    id: item,
+                                    name: items[item].name,
+                                    price: items[item].price,
+                                    quantity: items[item].quantity,
+                                    total: items[item].price * items[item].quantity,
+                                    size: items[item].size,
+                                    pay: items[item].pay
+
+                                }
+                            );
+                        }
 
 
 
-                        newState.push(
-                            {
-                                id: item,
-                                name: items[item].name,
-                                price: items[item].price,
-                                quantity: items[item].quantity,
-                                total: items[item].price * items[item].quantity,
-                                size: items[item].size
-
-                            }
-                        );
                     }//end for
+
                     // set the data
                     this.setState(
                         { items: newState });
@@ -174,10 +181,10 @@ export default class Basket extends Component {
             if (selectedSize === "S") {
                 price = 10.99;
             }
-            if (selectedSize === "M") {
+            else if (selectedSize === "M") {
                 price = 12.99;
             }
-            if (selectedSize === "L") {
+            else if (selectedSize === "L") {
                 price = 14.99;
             }
             else {
@@ -223,6 +230,26 @@ export default class Basket extends Component {
         });
 
     }
+    payment(e) {
+        let data = this.state.items;
+        console.log(data)
+
+        // https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+        let today = new Date().toISOString().slice(0, 10);
+        console.log(today)
+        
+        for (let d in data) {
+            let itemId = data[d].id;
+            let itemRef = Firebase.database().ref(`/order/${itemId}`);
+            itemRef.update({ 
+                'pay': true ,
+                'date': today
+            });
+        }
+
+        alert("You have placed the order");
+
+    }
 
 
 
@@ -246,7 +273,7 @@ export default class Basket extends Component {
                 <div className="jumbotron">
 
                     <h1>Basket</h1>
-                    <table className="table table-hover">
+                    <table className="table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">Item</th>
@@ -254,6 +281,8 @@ export default class Basket extends Component {
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Total</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -339,9 +368,9 @@ export default class Basket extends Component {
 
                     </table>
 
+                    <br />
 
-
-                    {/* <button type="button" className="btn btn-primary" onClick={this.handleDeleteClicked} value={item.id}>Delete</button> */}
+                    <button id="paybtn" type="button" className="btn btn-primary btn-lg btn-block" onClick={this.payment} >Pay</button>
 
 
 

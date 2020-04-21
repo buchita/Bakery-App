@@ -100,24 +100,21 @@ export default class Item extends Component {
             if (radCheck && selCheck) {
                 const email = isLoggedin ? localStorage.getItem('email') : '';
 
-                //add in db
                 const itemRef = Firebase.database().ref('order');
 
+
                 console.log("This is radbutton : ", radButton)
-                if(radButton === "S")
-                {
+                if (radButton === "S") {
                     price = 10.99;
                 }
-                if (radButton === "M") 
-                {
+                else if (radButton === "M") {
                     price = 12.99;
-                } 
-                if( radButton === "L") 
-                {
+                }
+                else if (radButton === "L") {
                     price = 14.99;
                 }
-                else{
-                    console.log("in else lol")
+                else {
+                    console.log("in else item.js")
                 }
 
                 console.log(price)
@@ -127,9 +124,29 @@ export default class Item extends Component {
                     name: data,
                     quantity: quantity,
                     size: radButton,
-                    price: price
+                    price: price,
+                    pay: false
                 }
 
+
+                // itemRef.on('value', snapshot => {
+                //     let items = snapshot.val();
+                //     for (let item in items) {
+                //         console.log("this is the item update")
+                //         console.log(item)
+                //         if (items[item].name === data && items[item].size === radButton) {
+                //             console.log("name and size the same lolll");
+                //             let itemId = item;
+                //             let oldAmount = items[item].quantity;
+                //             let newAmount = oldAmount + quantity;
+                //             const itemRef = Firebase.database().ref(`/order/${itemId}`);
+
+                //             // itemRef.update({ 'quantity': newAmount });
+                //             // newAmount = 0;
+                //         }
+
+                //     }
+                // });
                 /* Send the message to Firebase */
                 itemRef.push(item);
 
@@ -149,7 +166,7 @@ export default class Item extends Component {
 
         }
         else {
-           
+
             alert("please login before you preoceed");
             this.props.history.push('/login');
 

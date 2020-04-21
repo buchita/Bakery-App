@@ -12,14 +12,14 @@ import UserAccount from './component/user/account';
 import { FaUser, FaShoppingBasket } from 'react-icons/fa';
 import Item from './component/item';
 import Basket from './component/basket';
+import api from './component/api';
+// import AccountHome from './component/user/account/accountHome';
 
 
-// import "bootstrap/dist/js/bootstrap";
-// import "jquery/dist/jquery"
-
-//https://css-tricks.com/intro-firebase-react/
 
 
+
+//The structure is taken from: https://css-tricks.com/intro-firebase-react/
 class App extends Component {
   constructor(props) {
     super(props);
@@ -160,9 +160,9 @@ class App extends Component {
             <Route path="/account" component={UserAccount} />
             <Route path="/item" component={Item} />
             <Route path="/basket" component={Basket} />
-
-            {/* <Route path="/gallery" component={Gallery} />
-              <Route path="/edit/:id" component={EditList} /> */}
+            <Route path="/api" component={api} />
+            {/* <Route path="/account" component={AccountHome} /> */}
+              {/* <Route path="/edit/:id" component={EditList} /> */}
 
 
           </div>
